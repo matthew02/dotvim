@@ -273,15 +273,3 @@ endfunction
 " See difference between current buffer and the file it was loaded from
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                \ | wincmd p | diffthis
-
-
-"----------------------------------------------------------------------------"
-" Credit to the following...                                                 "
-"----------------------------------------------------------------------------"
-"http://amix.dk/vim/vimrc.html
-"http://blog.mojotech.com/a-veterans-vimrc/
-"https://coderwall.com/p/sdhfug/vim-swap-backup-and-undo-files
-"https://github.com/spf13/spf13-vim/blob/3.0/.vimrc
-"
-" Apologies to anyone who deserves credit but isn't on the list.
-" If you've been left out, please shoot me an email and I'll put you in here.
