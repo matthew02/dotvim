@@ -59,9 +59,11 @@ endif
 set t_Co=256
 
 set background=dark
-colorscheme jellybeans
+colorscheme Brogrammer
+"colorscheme jellybeans
 "colorscheme solarized
 "colorscheme peaksea
+"colorscheme rdark
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
