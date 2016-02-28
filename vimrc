@@ -106,9 +106,9 @@ set smartindent
 " Use spaces instead of tabs
 set expandtab
 
-" 1 tab == 4 spaces
-set tabstop=4
-set shiftwidth=4
+" 1 tab == 2 spaces
+set tabstop=2
+set shiftwidth=2
 
 " Insert spaces up to where the next tab should logically be
 set smarttab
