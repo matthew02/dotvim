@@ -53,28 +53,6 @@ endif
 
 
 "----------------------------------------------------------------------------"
-" Colors and styling                                                         "
-"----------------------------------------------------------------------------"
-" Set the number of terminal colors to 256 for nice color schemes
-set t_Co=256
-
-set background=dark
-colorscheme Brogrammer
-"colorscheme jellybeans
-"colorscheme solarized
-"colorscheme peaksea
-"colorscheme rdark
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-
-
-"----------------------------------------------------------------------------"
 " Search                                                                     "
 "----------------------------------------------------------------------------"
 " Perform case-insensitive search
@@ -143,6 +121,32 @@ set list
 
 " Show custom symbols for tabstops '›' and EOLs '¬'
 set listchars=tab:›\ ,eol:¬
+
+
+
+
+"----------------------------------------------------------------------------"
+" Colors and styling                                                         "
+"----------------------------------------------------------------------------"
+" Set the number of terminal colors to 256 for nice color schemes
+set t_Co=256
+
+"set background=dark
+colorscheme Brogrammer
+"colorscheme jellybeans
+"colorscheme solarized
+"colorscheme peaksea
+"colorscheme rdark
+
+" Set the background to be transparent
+hi Normal ctermbg=none
+hi NonText ctermbg=none
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
 
 
 
