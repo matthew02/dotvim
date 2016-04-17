@@ -1,5 +1,4 @@
 " Maintainer:	James Smith <matthew02@users.noreply.github.com>
-" Last change:	2014 Dec 19
 "
 
 " When started as "evim", evim.vim will already have done these settings.
@@ -251,6 +250,9 @@ set splitright
 
 " Place new split windows below
 set splitbelow
+
+" Do not wrap long lines
+set nowrap
 
 
 
