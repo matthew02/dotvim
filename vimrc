@@ -1,30 +1,18 @@
 " Maintainer:	James Smith <matthew02@users.noreply.github.com>
 "
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-
-" If Vundle.vim is not installed, make it so
-let isVundleInstalled = 0
-let vundle_readme = expand('~/.vim/bundle/Vundle.vim/README.md')
-if !filereadable(vundle_readme)
-    echo "Installing Vundle.vim..."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    let isVundleInstalled = 1
-endif
 
 " Set the runtime path to include Vundle and initialize
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" Keep Plugin commands between vundle#begin/end.
 
 " Let Vundle manage Vundle (required)
 Plugin 'gmarik/Vundle.vim'
@@ -35,18 +23,26 @@ Plugin 'tpope/vim-sensible'
 "YouCompleteMe code completion magic
 Plugin 'Valloric/YouCompleteMe'
 
-" Syntastic pretty syntax highlighting
+" Real-time syntax checking
 Plugin 'scrooloose/syntastic'
 
-" All plugins must be added before the following line
-call vundle#end()
+" Syntax highlighting
+Plugin 'sheerun/vim-polyglot'
 
-" Let Vundle install your missing plugins
-if isVundleInstalled == 1
-    echo "Installing plugins... Please ignore key map error messages."
-    echo ""
-    :BundleInstall
-endif
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 
 
@@ -128,18 +124,42 @@ set listchars=tab:›\ ,eol:¬
 " Colors and styling                                                         "
 "----------------------------------------------------------------------------"
 " Set the number of terminal colors to 256 for nice color schemes
-set t_Co=256
+"set t_Co=256
+
+"Use 24-bit (true-color) mode in when outside tmux
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+" Enable italics
+let g:onedark_terminal_italics=1
 
 "set background=dark
-colorscheme Brogrammer
+colorscheme onedark
+"colorscheme Brogrammer
 "colorscheme jellybeans
 "colorscheme solarized
 "colorscheme peaksea
 "colorscheme rdark
 
-" Set the background to be transparent
-hi Normal ctermbg=none
-hi NonText ctermbg=none
+" Set the background to dark gray
+"hi Normal guibg=#333333
+highlight Normal ctermbg=0 cterm=NONE
+"highlight Normal ctermbg=#333333
+"highlight Normal guifg=#e0e0e0 guibg=#242424 gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+"highlight Normal guifg=#e0e0e0 guibg=#242424 gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
+"highlight NonText guifg=#99968b guibg=#333333 gui=NONE ctermfg=246 ctermbg=16 cterm=NONE
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -258,6 +278,22 @@ set nowrap
 
 
 "----------------------------------------------------------------------------"
+" Filetype specific settings                                                 "
+"----------------------------------------------------------------------------"
+" Tabs for python
+autocmd FileType python set sw=4
+autocmd FileType python set ts=4
+autocmd FileType python set sts=4
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_utilisnips_completer = 1
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+
+
+
+
+"----------------------------------------------------------------------------"
 " Helper functions                                                           "
 "----------------------------------------------------------------------------"
 " Delete trailing white space on save for Python
@@ -281,3 +317,17 @@ endfunction
 " See difference between current buffer and the file it was loaded from
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                \ | wincmd p | diffthis
+
+
+" Toggle background transparency
+let t:is_transparent = 0
+function! Toggle_transparent()
+  if t:is_transparent == 0
+    hi Normal guibg=NONE ctermbg=NONE
+    let t:is_transparent = 1
+  else
+    set background=dark
+    let t:is_transparent = 0
+  endif
+endfunction
+nnoremap <C-t> : call Toggle_transparent()<CR>
