@@ -1,48 +1,40 @@
 " Maintainer:	James Smith <matthew02@users.noreply.github.com>
 "
 
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Set the runtime path to include Vundle and initialize
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" Keep Plugin commands between vundle#begin/end.
 
-" Let Vundle manage Vundle (required)
-Plugin 'gmarik/Vundle.vim'
 
-" Sensible default vim settings
-Plugin 'tpope/vim-sensible'
+"----------------------------------------------------------------------------"
+" Plugins                                                                    "
+"----------------------------------------------------------------------------"
+" Automatically install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-"YouCompleteMe code completion magic
-Plugin 'Valloric/YouCompleteMe'
-
-" Real-time syntax checking
-Plugin 'scrooloose/syntastic'
-
-" Syntax highlighting
-Plugin 'sheerun/vim-polyglot'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf.vim'
+Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'jiangmiao/auto-pairs'
+Plug 'sheerun/vim-polyglot'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'dense-analysis/ale'
+"Plug 'Valloric/YouCompleteMe'
 
 
 
@@ -248,7 +240,24 @@ cmap w!! w !sudo tee % > /dev/null
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+" Paste mode flag, text is '[Paste]'
+set statusline=\ %{HasPaste()}
+" Full path to the file in the buffer
+set statusline+=\ %F
+" Modified flag, text is '[+]'; '[-]' if 'modifiable' is off.
+set statusline+=%m
+" Read-only flag, text is '[RO]'
+set statusline+=%r
+" Help buffer flag, text is '[help]'
+set statusline+=%h
+" Preview window flag, text is '[Preview]'
+set statusline+=\ %w
+" Current working directory
+set statusline+=\ \ CWD:\ %{getcwd()}
+" Line number and number of lines in buffer, text is Line: X/Y
+set statusline+=\ \ \ Line:\ %l/%L
+" Column number
+set statusline+=\ \ \ Col:\ %c
 
 " Change the command bar height
 set cmdheight=2
@@ -284,11 +293,6 @@ set nowrap
 autocmd FileType python set sw=4
 autocmd FileType python set ts=4
 autocmd FileType python set sts=4
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_use_utilisnips_completer = 1
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
 
 
 
@@ -308,7 +312,7 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
-        return 'PASTE MODE  '
+        return '[Paste]'
     en
     return ''
 endfunction
