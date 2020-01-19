@@ -188,6 +188,14 @@ map <Tab><Tab> <C-W>w
 " Pressing ,ss will toggle spell-checking
 "map <leader>ss :setlocal spell!<cr>
 
+" Disable navigation keys to force correct habits
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+noremap <PageUp> <NOP>
+noremap <PageDown> <NOP>
+
 
 
 
