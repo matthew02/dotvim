@@ -89,7 +89,16 @@ autocmd FileType text setlocal textwidth=80
 " Visual                                                                     "
 "----------------------------------------------------------------------------"
 " Show line numbers
-set number
+" The active line displays it's absolute position
+" Neighboring lines display their position as an offset from the active line
+set number relativenumber
+
+" Show absolute line numbers when in insert mode
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " Highlight active line number
 augroup CLNRSet
