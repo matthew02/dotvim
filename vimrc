@@ -197,11 +197,6 @@ map <Tab><Tab> <C-W>w
 "map <leader>ss :setlocal spell!<cr>
 
 " Disable navigation keys to force correct habits
-cnoremap <Up> <NOP>
-cnoremap <Down> <NOP>
-cnoremap <Left> <NOP>
-cnoremap <Right> <NOP>
-
 inoremap <Up> <NOP>
 inoremap <Down> <NOP>
 inoremap <Left> <NOP>
