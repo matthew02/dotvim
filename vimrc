@@ -27,7 +27,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'junegunn/fzf.vim'
 Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'jiangmiao/auto-pairs'
@@ -35,6 +35,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'dense-analysis/ale'
 "Plug 'Valloric/YouCompleteMe'
+call plug#end()
 
 
 
@@ -78,8 +79,8 @@ set shiftwidth=2
 " Insert spaces up to where the next tab should logically be
 set smarttab
 
-" For all text files set 'textwidth' to 78 characters.
-autocmd FileType text setlocal textwidth=78
+" For all text files set 'textwidth' to 80 characters.
+autocmd FileType text setlocal textwidth=80
 
 
 
@@ -91,10 +92,11 @@ autocmd FileType text setlocal textwidth=78
 set number
 
 " Highlight active line number
-hi CursorLineNR cterm=bold
 augroup CLNRSet
-    autocmd! ColorScheme * hi CursorLineNR cterm=bold
+    autocmd! ColorScheme * highlight CursorLineNR cterm=bold
 augroup END
+
+" Highlight the active line
 set cursorline
 
 " Show the line and column number for the cursor position
@@ -105,9 +107,7 @@ syntax on
 
 " Toggle showing invisible characters
 set list
-
-" Show custom symbols for tabstops '›' and EOLs '¬'
-set listchars=tab:›\ ,eol:¬
+set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
 
 
 
@@ -115,9 +115,7 @@ set listchars=tab:›\ ,eol:¬
 "----------------------------------------------------------------------------"
 " Colors and styling                                                         "
 "----------------------------------------------------------------------------"
-" Set the number of terminal colors to 256 for nice color schemes
-"set t_Co=256
-
+"Use 24-bit (true-color) mode in when outside tmux
 "Use 24-bit (true-color) mode in when outside tmux
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
@@ -134,24 +132,28 @@ if (empty($TMUX))
   endif
 endif
 
+" Set the font for GVim
+if has("gui_running")
+  set guifont=Fira\ Code\ iScript\ Bold\ 11
+endif
+
 " Enable italics
-let g:onedark_terminal_italics=1
+let g:monokai_term_italic=1
+let g:monokai_gui_italic=1
+
+" Load overrides after the color scheme is loaded
+augroup OverrideColorScheme
+  autocmd colorscheme * source ~/.vim/colors/monokai_override.vim
+augroup END
 
 "set background=dark
-colorscheme onedark
+colorscheme monokai
+"colorscheme onedark
 "colorscheme Brogrammer
 "colorscheme jellybeans
 "colorscheme solarized
 "colorscheme peaksea
 "colorscheme rdark
-
-" Set the background to dark gray
-"hi Normal guibg=#333333
-highlight Normal ctermbg=0 cterm=NONE
-"highlight Normal ctermbg=#333333
-"highlight Normal guifg=#e0e0e0 guibg=#242424 gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-"highlight Normal guifg=#e0e0e0 guibg=#242424 gui=NONE ctermfg=254 ctermbg=235 cterm=NONE
-"highlight NonText guifg=#99968b guibg=#333333 gui=NONE ctermfg=246 ctermbg=16 cterm=NONE
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -171,12 +173,18 @@ set showmatch
 " Make backspace work like most other apps
 set backspace=eol,start,indent
 
-" Wrap the cursor up/down when moved while at the beginning/end of a line
-set whichwrap+=<,>,h,l
+" Wrap the cursor up/down when backspacind and or moved while at the beginning/end of a line
+set whichwrap=b,<,>,h,l
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
+" Escape from insert mode and write the buffer by pressing uu
+inoremap <silent> uu <Esc>:w<CR>
+
+" Automatically write the buffer when pressing <Esc> to leave insert mode
+inoremap <Esc> <Esc>:w<CR>
 
 " Map space to page-down and - to page-up
 noremap <Space> <PageDown>
@@ -189,12 +197,27 @@ map <Tab><Tab> <C-W>w
 "map <leader>ss :setlocal spell!<cr>
 
 " Disable navigation keys to force correct habits
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-noremap <PageUp> <NOP>
-noremap <PageDown> <NOP>
+cnoremap <Up> <NOP>
+cnoremap <Down> <NOP>
+cnoremap <Left> <NOP>
+cnoremap <Right> <NOP>
+
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+nnoremap <Up> <NOP>
+nnoremap <Down> <NOP>
+nnoremap <Left> <NOP>
+nnoremap <Right> <NOP>
+nnoremap <PageUp> <NOP>
+nnoremap <PageDown> <NOP>
+
+vnoremap <Up> <NOP>
+vnoremap <Down> <NOP>
+vnoremap <Left> <NOP>
+vnoremap <Right> <NOP>
 
 
 
@@ -203,7 +226,7 @@ noremap <PageDown> <NOP>
 " Under the hood                                                             "
 "----------------------------------------------------------------------------"
 " Automatically save before commands like :next and :make
-set autowrite
+"set autowrite
 
 " Hide buffers when they are abandoned
 set hidden
@@ -237,6 +260,9 @@ set history=100
 
 " Allow saving a file as SU when accidentally not opened with sudo
 cmap w!! w !sudo tee % > /dev/null
+
+" Automatically save the buffer whenever text is changed
+"autocmd TextChanged,TextChangedI * silent write
 
 
 
@@ -273,7 +299,7 @@ set cmdheight=2
 " Show additional information about an in-progress command
 set showcmd
 
-" Enable the Wild menu
+" Enable enhanced command line completion
 set wildmenu
 
 " Enable mouse usage (all modes)
@@ -298,9 +324,7 @@ set nowrap
 " Filetype specific settings                                                 "
 "----------------------------------------------------------------------------"
 " Tabs for python
-autocmd FileType python set sw=4
-autocmd FileType python set ts=4
-autocmd FileType python set sts=4
+autocmd FileType python setlocal ts=4 sw=4 expandtab
 
 
 
@@ -310,24 +334,24 @@ autocmd FileType python set sts=4
 "----------------------------------------------------------------------------"
 " Delete trailing white space on save for Python
 func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
 
 " Returns true if paste mode is enabled
 function! HasPaste()
-    if &paste
-        return '[Paste]'
-    en
-    return ''
+  if &paste
+    return '[Paste]'
+  en
+  return ''
 endfunction
 
 
 " See difference between current buffer and the file it was loaded from
-command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                \ | wincmd p | diffthis
 
 
