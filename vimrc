@@ -134,7 +134,7 @@ endif
 
 " Set the font for GVim
 if has("gui_running")
-  set guifont=Fira\ Code\ iScript\ Bold\ 11
+  set guifont=Source Code Pro Medium 11
 endif
 
 " Enable italics
