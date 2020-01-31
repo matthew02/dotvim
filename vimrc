@@ -1,15 +1,4 @@
 " Maintainer:	James Smith <matthew02@users.noreply.github.com>
-"
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
 
 
 
@@ -34,9 +23,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'sheerun/vim-polyglot'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'dense-analysis/ale'
+Plug '907th/vim-auto-save'
 "Plug 'Valloric/YouCompleteMe'
 call plug#end()
-
 
 
 
@@ -54,7 +43,6 @@ set incsearch
 
 " Highlight search results
 set hlsearch
-
 
 
 
@@ -81,7 +69,6 @@ set smarttab
 
 " For all text files set 'textwidth' to 80 characters.
 autocmd FileType text setlocal textwidth=80
-
 
 
 
@@ -114,33 +101,12 @@ set ruler
 " Use syntax highlighting
 syntax on
 
-" Toggle showing invisible characters
-set list
-set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
-
 
 
 
 "----------------------------------------------------------------------------"
-" Colors and styling                                                         "
+" Font and text style                                                        "
 "----------------------------------------------------------------------------"
-"Use 24-bit (true-color) mode in when outside tmux
-"Use 24-bit (true-color) mode in when outside tmux
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
 " Set the font for GVim
 if has("gui_running")
   set guifont=Source\ Code\ Pro\ Medium\ 11
@@ -150,6 +116,15 @@ endif
 let g:monokai_term_italic=1
 let g:monokai_gui_italic=1
 
+" Toggle showing invisible characters
+set list
+set listchars=tab:→\ ,space:·,nbsp:␣,trail:•,precedes:«,extends:»
+
+
+
+"----------------------------------------------------------------------------"
+" Colors and styling                                                         "
+"----------------------------------------------------------------------------"
 " Load overrides after the color scheme is loaded
 augroup OverrideColorScheme
   autocmd colorscheme * source ~/.vim/colors/monokai_override.vim
@@ -163,13 +138,6 @@ colorscheme monokai
 "colorscheme solarized
 "colorscheme peaksea
 "colorscheme rdark
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
 
 
 
@@ -190,10 +158,7 @@ set whichwrap=b,<,>,h,l
 inoremap <C-U> <C-G>u<C-U>
 
 " Escape from insert mode and write the buffer by pressing uu
-inoremap <silent> uu <Esc>:w<CR>
-
-" Automatically write the buffer when pressing <Esc> to leave insert mode
-inoremap <Esc> <Esc>:w<CR>
+inoremap <silent> uu <Esc>
 
 " Map space to page-down and - to page-up
 noremap <Space> <PageDown>
@@ -206,32 +171,20 @@ map <Tab><Tab> <C-W>w
 "map <leader>ss :setlocal spell!<cr>
 
 " Disable navigation keys to force correct habits
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
-
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
-nnoremap <Right> <NOP>
-nnoremap <PageUp> <NOP>
-nnoremap <PageDown> <NOP>
-
-vnoremap <Up> <NOP>
-vnoremap <Down> <NOP>
-vnoremap <Left> <NOP>
-vnoremap <Right> <NOP>
-
+noremap <Up>       <Nop>
+noremap <Down>     <Nop>
+noremap <Left>     <Nop>
+noremap <Right>    <Nop>
+noremap <PageUp>   <Nop>
+noremap <PageDown> <Nop>
+noremap <Home>     <Nop>
+noremap <End>      <Nop>
 
 
 
 "----------------------------------------------------------------------------"
 " Under the hood                                                             "
 "----------------------------------------------------------------------------"
-" Automatically save before commands like :next and :make
-"set autowrite
-
 " Hide buffers when they are abandoned
 set hidden
 
@@ -268,6 +221,14 @@ cmap w!! w !sudo tee % > /dev/null
 " Automatically save the buffer whenever text is changed
 "autocmd TextChanged,TextChangedI * silent write
 
+" Enable autosave (plugin)
+let g:auto_save = 1
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
 
 
 
@@ -323,13 +284,11 @@ set nowrap
 
 
 
-
 "----------------------------------------------------------------------------"
 " Filetype specific settings                                                 "
 "----------------------------------------------------------------------------"
 " Tabs for python
 autocmd FileType python setlocal ts=4 sw=4 expandtab
-
 
 
 
