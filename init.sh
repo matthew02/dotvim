@@ -70,25 +70,4 @@ fi
 echo ""
 sleep 1s
 
-echo "Checking if Vundle is installed ..."
-if [ -f ~/.vim/bundle/Vundle.vim/README.md ]; then
-    echo "Vundle found!"
-  else
-      echo "Vundle not found. Installing now ..."
-      mkdir ~/.vim/bundle
-      git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-echo ""
-
-echo "Vundle is installing your vim plugins .."
-vim +PluginInstall +qall
-echo ""
-sleep 1s
-
-echo "Compiling YouCompleteMe ..."
-cd ~/.vim/bundle/YouCompleteMe
-./install.sh
-echo ""
-sleep 1s
-
 echo "All done!"
