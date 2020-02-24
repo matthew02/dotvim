@@ -14,17 +14,40 @@ endif
 
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-commentary'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf.vim'
-Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'jiangmiao/auto-pairs'
-Plug 'sheerun/vim-polyglot'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'dense-analysis/ale'
+
+" Automatically saves buffers
 Plug '907th/vim-auto-save'
-"Plug 'Valloric/YouCompleteMe'
+
+" Linting using Language Server Protocol
+Plug 'dense-analysis/ale'
+
+" Adds motions for Python code structures
+Plug 'jeetsukumaran/vim-pythonsense'
+
+" Fuzzy finder
+Plug 'junegunn/fzf.vim'
+
+" Conquer of completion intellisense engine
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"" File-system explorer
+Plug 'preservim/nerdtree'
+
+" Enable smooth scrolling for page and half-page motion
+Plug 'psliwka/vim-smoothie'
+
+" Syntax highlighting and indentation
+Plug 'sheerun/vim-polyglot'
+
+" Shortcuts for code commenting
+Plug 'tpope/vim-commentary'
+
+" Use some sensible default options
+Plug 'tpope/vim-sensible'
+
+" Use pep8 indentation style
+"Plug 'vimjas/vim-python-pep8-indent'
+
 call plug#end()
 
 
@@ -50,8 +73,7 @@ set hlsearch
 " Tabbing                                                                    "
 "----------------------------------------------------------------------------"
 " Load indentation rules and plugins according to the detected filetype.
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " Auto-indent new lines and indent according to file type
 set autoindent
@@ -100,7 +122,6 @@ set ruler
 
 " Use syntax highlighting
 syntax on
-
 
 
 
@@ -287,8 +308,11 @@ set nowrap
 "----------------------------------------------------------------------------"
 " Filetype specific settings                                                 "
 "----------------------------------------------------------------------------"
-" Tabs for python
-autocmd FileType python setlocal ts=4 sw=4 expandtab
+" Tabs for Python (override filetype-plugin settings)
+autocmd FileType python setlocal tabstop=4
+
+" Correct json comment highlighting
+"autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
 
@@ -313,9 +337,9 @@ function! HasPaste()
 endfunction
 
 
-" See difference between current buffer and the file it was loaded from
+" See the difference between current buffer and the file it was loaded from
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-               \ | wincmd p | diffthis
+  \ | wincmd p | diffthis
 
 
 " Toggle background transparency
@@ -330,3 +354,19 @@ function! Toggle_transparent()
   endif
 endfunction
 nnoremap <C-t> : call Toggle_transparent()<CR>
+
+
+" Show the number of errors and errors in the status line
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '✨ all good ✨' : printf(
+        \   '😞 %dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+set statusline+=\ \ \ %{LinterStatus()}
