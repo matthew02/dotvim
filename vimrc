@@ -129,6 +129,9 @@ set ruler
 " Use syntax highlighting
 syntax on
 
+" Move NERDTree to the right
+let g:NERDTreeWinPos="right"
+
 
 
 "----------------------------------------------------------------------------"
