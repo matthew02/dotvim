@@ -39,7 +39,7 @@ Plug 'psliwka/vim-smoothie'
 " Syntax highlighting and indentation
 Plug 'sheerun/vim-polyglot'
 
-" Shortcuts for code commenting
+" Colorize NERDTree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Shortcuts for code commenting
@@ -165,6 +165,18 @@ colorscheme monokai
 "colorscheme solarized
 "colorscheme peaksea
 "colorscheme rdark
+
+" NERDTree color settings
+" Highlight full file name (not only icons)
+let g:NERDTreeFileExtensionHighlightFullName=1
+let g:NERDTreeExactMatchHighlightFullName=1
+let g:NERDTreePatternMatchHighlightFullName=1
+
+" Enable folder icon highlighting using exact match
+let g:NERDTreeHighlightFolders=1
+
+" Highlight the folder name
+let g:NERDTreeHighlightFoldersFullName=1
 
 
 
