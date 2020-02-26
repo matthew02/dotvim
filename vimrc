@@ -40,6 +40,9 @@ Plug 'psliwka/vim-smoothie'
 Plug 'sheerun/vim-polyglot'
 
 " Shortcuts for code commenting
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Shortcuts for code commenting
 Plug 'tpope/vim-commentary'
 
 " Use some sensible default options
@@ -47,6 +50,9 @@ Plug 'tpope/vim-sensible'
 
 " Use pep8 indentation style
 "Plug 'vimjas/vim-python-pep8-indent'
+
+" Pretty icons for plugins like NERDTree
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
