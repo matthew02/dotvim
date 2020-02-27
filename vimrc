@@ -27,6 +27,9 @@ Plug 'jeetsukumaran/vim-pythonsense'
 " Fuzzy finder
 Plug 'junegunn/fzf.vim'
 
+" HTML & CSS snippets
+Plug 'mattn/emmet-vim'
+
 " Conquer of completion intellisense engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -195,21 +198,25 @@ set backspace=eol,start,indent
 " Wrap the cursor up/down when backspacing and or moved while at the beginning/end of a line
 set whichwrap=b,<,>,h,l
 
+" Map space to leader (may break NERDCommenter)
+map <Space> <Leader>
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Escape from insert mode and write the buffer by pressing uu
+" Map uu to escape from insert mode and write the buffer
 "inoremap <silent> uu <Esc>
 
-" Map space to page-down and - to page-up
-noremap <Space> <PageDown>
-noremap - <PageUp>
+" Map - to move down one page nad _ to move up one page
+"noremap <Space> <PageDown>
+noremap - <C-u>
+noremap _ <C-b>
 
-" Map double press Tab to cycle through windows
+" Map double-press Tab to cycle through windows
 map <Tab><Tab> <C-W>w
 
-" Pressing ,ss will toggle spell-checking
+" Map <space>ss to toggle spell-checking
 map <leader>ss :setlocal spell!<cr>
 
 " Disable navigation keys to force correct habits
