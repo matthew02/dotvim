@@ -199,7 +199,7 @@ set backspace=eol,start,indent
 set whichwrap=b,<,>,h,l
 
 " Map space to leader (may break NERDCommenter)
-map <Space> <Leader>
+let mapleader="\<Space>"
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -218,6 +218,9 @@ map <Tab><Tab> <C-W>w
 
 " Map <space>ss to toggle spell-checking
 map <leader>ss :setlocal spell!<cr>
+
+" Map <space>- to trigger Emmet
+let g:user_emmet_leader_key=','
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
@@ -341,6 +344,10 @@ autocmd FileType python setlocal tabstop=4
 
 " Correct json comment highlighting
 "autocmd FileType json syntax match Comment +\/\/.\+$+
+
+" Make Emmet work only with HTML and CSS files
+let g:user_emmet_install_global=0
+autocmd FileType html,css EmmetInstall
 
 
 
