@@ -192,7 +192,7 @@ set showmatch
 " Make backspace work like most other apps
 set backspace=eol,start,indent
 
-" Wrap the cursor up/down when backspacind and or moved while at the beginning/end of a line
+" Wrap the cursor up/down when backspacing and or moved while at the beginning/end of a line
 set whichwrap=b,<,>,h,l
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
@@ -200,7 +200,7 @@ set whichwrap=b,<,>,h,l
 inoremap <C-U> <C-G>u<C-U>
 
 " Escape from insert mode and write the buffer by pressing uu
-inoremap <silent> uu <Esc>
+"inoremap <silent> uu <Esc>
 
 " Map space to page-down and - to page-up
 noremap <Space> <PageDown>
@@ -210,7 +210,7 @@ noremap - <PageUp>
 map <Tab><Tab> <C-W>w
 
 " Pressing ,ss will toggle spell-checking
-"map <leader>ss :setlocal spell!<cr>
+map <leader>ss :setlocal spell!<cr>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
