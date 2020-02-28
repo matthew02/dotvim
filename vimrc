@@ -123,8 +123,9 @@ augroup CLNRSet
     autocmd! ColorScheme * highlight CursorLineNR cterm=bold
 augroup END
 
-" Highlight the active line
+" Highlight the active row and column
 set cursorline
+set cursorcolumn
 
 " Show the line and column number for the cursor position
 set ruler
@@ -205,21 +206,27 @@ let mapleader="\<Space>"
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Map uu to escape from insert mode and write the buffer
+" Escape from insert mode and write the buffer with uu
 "inoremap <silent> uu <Esc>
 
-" Map - to move down one page nad _ to move up one page
+" Move down one page with - and up one page with _
 "noremap <Space> <PageDown>
 noremap - <C-u>
 noremap _ <C-b>
 
-" Map double-press Tab to cycle through windows
+" Cycle through windows by double-pressing Tab
 map <Tab><Tab> <C-W>w
 
-" Map <space>ss to toggle spell-checking
-map <leader>ss :setlocal spell!<cr>
+" Toggle spell-checking with <space>ss 
+map <leader>ss :setlocal spell!<CR>
 
-" Map <space>- to trigger Emmet
+" NERDTree keybindings
+" Find the currently open file in NERDTree with <space>ff 
+nmap <leader>ff :NERDTreeFind<CR>
+" Toggle NERDTree with <space>tt
+nmap <leader>tt :NERDTreeToggle<CR>
+
+" Trigger Emmet with ,,
 let g:user_emmet_leader_key=','
 
 " Disable navigation keys to force correct habits
