@@ -350,7 +350,7 @@ set nowrap
 autocmd FileType python setlocal tabstop=4
 
 " Correct json comment highlighting
-"autocmd FileType json syntax match Comment +\/\/.\+$+
+autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Make Emmet work only with HTML and CSS files
 let g:user_emmet_install_global=0
