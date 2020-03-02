@@ -214,20 +214,44 @@ inoremap <C-U> <C-G>u<C-U>
 noremap - <C-u>
 noremap _ <C-b>
 
-" Cycle through windows by double-pressing Tab
+" Cycle through windows by double-pressing <Tab>
 map <Tab><Tab> <C-W>w
 
-" Toggle spell-checking with <space>ss 
+" Toggle spell-checking with <Space>ss 
 map <leader>ss :setlocal spell!<CR>
 
 " NERDTree keybindings
-" Find the currently open file in NERDTree with <space>ff 
+" Find the currently open file in NERDTree with <Space>ff 
 nmap <leader>ff :NERDTreeFind<CR>
-" Toggle NERDTree with <space>tt
+" Toggle NERDTree with <Space>tt
 nmap <leader>tt :NERDTreeToggle<CR>
 
 " Trigger Emmet with ,,
 let g:user_emmet_leader_key=','
+
+" Bindings for Conquer of Completion
+" Trigger completion and navigate to the next complete item with <Tab>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Navigate the completion list with <Tab> and <S-Tab>
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Confirm completion with <CR>
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Select the first completion and confirm when to item is selected
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
@@ -340,6 +364,10 @@ set splitbelow
 
 " Do not wrap long lines
 set nowrap
+
+" Clase the Conquer of Completion preview window when completion is done
+absolute
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
 
