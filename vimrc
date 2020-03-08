@@ -307,6 +307,9 @@ cmap w!! w !sudo tee % > /dev/null
 " Enable autosave (plugin)
 let g:auto_save = 1
 
+" Farce Ale to use pipenv where available
+let g:ale_python_auto_pipenv = 1
+
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
