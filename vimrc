@@ -365,8 +365,7 @@ set splitbelow
 " Do not wrap long lines
 set nowrap
 
-" Clase the Conquer of Completion preview window when completion is done
-absolute
+" Close the Conquer of Completion preview window when completion is done
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
@@ -375,7 +374,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Filetype specific settings                                                 "
 "----------------------------------------------------------------------------"
 " Tabs for Python (override filetype-plugin settings)
-autocmd FileType python setlocal tabstop=4
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4
 
 " Correct json comment highlighting
 autocmd FileType json syntax match Comment +\/\/.\+$+
