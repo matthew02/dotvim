@@ -30,6 +30,9 @@ Plug 'junegunn/fzf.vim'
 " HTML & CSS snippets
 Plug 'mattn/emmet-vim'
 
+" Close buffers without closing windows
+Plug 'moll/vim-bbye'
+
 " Conquer of completion intellisense engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -251,6 +254,14 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Select the first completion and confirm when to item is selected
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
+" Bindings for Bbye
+nmap <leader>d :Bdelete
+nmap <leader>w :Bwipeout
+
+" Buffer navigation
+nmap <leader>n :bnext
+nmap <leader>p :bprevious
+nmap <leader>b :buffers
 
 
 " Disable navigation keys to force correct habits
