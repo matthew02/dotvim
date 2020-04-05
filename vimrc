@@ -18,8 +18,8 @@ call plug#begin('~/.vim/plugged')
 " Automatically saves buffers
 Plug '907th/vim-auto-save'
 
-" Linting using Language Server Protocol
-Plug 'dense-analysis/ale'
+"" Linting using Language Server Protocol
+"Plug 'dense-analysis/ale'
 
 " Adds motions for Python code structures
 Plug 'jeetsukumaran/vim-pythonsense'
@@ -249,19 +249,19 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Confirm completion with <CR>
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Select the first completion and confirm when to item is selected
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 " Bindings for Bbye
-nmap <leader>d :Bdelete
-nmap <leader>w :Bwipeout
+nmap <leader>d :Bdelete<CR>
+nmap <leader>w :Bwipeout<CR>
 
 " Buffer navigation
-nmap <leader>n :bnext
-nmap <leader>p :bprevious
-nmap <leader>b :buffers
+nmap <leader>n :bnext<CR>
+nmap <leader>p :bprevious<CR>
+nmap <leader>b :buffers<CR>
 
 
 " Disable navigation keys to force correct habits
@@ -318,8 +318,8 @@ cmap w!! w !sudo tee % > /dev/null
 " Enable autosave (plugin)
 let g:auto_save = 1
 
-" Farce Ale to use pipenv where available
-let g:ale_python_auto_pipenv = 1
+"" Farce Ale to use pipenv where available
+"let g:ale_python_auto_pipenv = 1
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -397,7 +397,15 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 let g:user_emmet_install_global=0
 autocmd FileType html,css EmmetInstall
 
+"" Use ALE as a linting fallback for languages not supported by CoC
+"let g:ale_linters = {
+"\   'c': [], 'cpp': [], 'rust': [], 'go': [], 'python': [], 'bibtex': [],
+"\   'html': [], 'css': [], 'javascript': [], 'typescript': [], 'tex': [],
+"\   'reason': [], 'json': [], 'vue': [], 'latex': [], 'bib': [], 'sh': []
+"\ }
 
+
+  
 
 "----------------------------------------------------------------------------"
 " Helper functions                                                           "
@@ -439,17 +447,18 @@ endfunction
 nnoremap <C-t> : call Toggle_transparent()<CR>
 
 
-" Show the number of errors and errors in the status line
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
+"" Show the number of errors and errors in the status line
+"function! LinterStatus() abort
+"  let l:counts = ale#statusline#Count(bufnr(''))
+"
+"  let l:all_errors = l:counts.error + l:counts.style_error
+"  let l:all_non_errors = l:counts.total - l:all_errors
+"
+"  return l:counts.total == 0 ? '✨ good ✨' : printf(
+"        \   '😞 %dW %dE',
+"        \   all_non_errors,
+"        \   all_errors
+"        \)
+"endfunction
+"set statusline+=\ \ \ %{LinterStatus()}
 
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? '✨ all good ✨' : printf(
-        \   '😞 %dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
-set statusline+=\ \ \ %{LinterStatus()}
