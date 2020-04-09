@@ -214,8 +214,8 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Move down one page with - and up one page with _
 "noremap <Space> <PageDown>
-noremap - <C-u>
-noremap _ <C-b>
+"noremap - <C-u>
+"noremap _ <C-b>
 
 " Cycle through windows by double-pressing <Tab>
 map <Tab><Tab> <C-W>w
@@ -225,9 +225,9 @@ map <leader>ss :setlocal spell!<CR>
 
 " NERDTree keybindings
 " Find the currently open file in NERDTree with <Space>ff 
-nmap <leader>ff :NERDTreeFind<CR>
+"nmap <leader>ff :NERDTreeFind<CR>
 " Toggle NERDTree with <Space>tt
-nmap <leader>tt :NERDTreeToggle<CR>
+"nmap <leader>tt :NERDTreeToggle<CR>
 
 " Trigger Emmet with ,,
 let g:user_emmet_leader_key=','
@@ -263,6 +263,8 @@ nmap <leader>n :bnext<CR>
 nmap <leader>p :bprevious<CR>
 nmap <leader>b :buffers<CR>
 
+" Binding for fzf
+nnoremap <leader>s :<C-u>FZF<CR>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
