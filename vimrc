@@ -37,7 +37,7 @@ Plug 'moll/vim-bbye'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "" File-system explorer
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 
 " Enable smooth scrolling for page and half-page motion
 Plug 'psliwka/vim-smoothie'
@@ -45,8 +45,8 @@ Plug 'psliwka/vim-smoothie'
 " Syntax highlighting and indentation
 Plug 'sheerun/vim-polyglot'
 
-" Colorize NERDTree
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"" Colorize NERDTree
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Shortcuts for code commenting
 Plug 'tpope/vim-commentary'
@@ -57,8 +57,8 @@ Plug 'tpope/vim-sensible'
 " Use pep8 indentation style
 "Plug 'vimjas/vim-python-pep8-indent'
 
-" Pretty icons for plugins like NERDTree
-Plug 'ryanoasis/vim-devicons'
+"" Pretty icons for plugins like NERDTree
+"Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
