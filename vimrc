@@ -39,8 +39,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "" File-system explorer
 "Plug 'preservim/nerdtree'
 
-" Enable smooth scrolling for page and half-page motion
-Plug 'psliwka/vim-smoothie'
+"" Enable smooth scrolling for page and half-page motion
+"Plug 'psliwka/vim-smoothie'
 
 " Syntax highlighting and indentation
 Plug 'sheerun/vim-polyglot'
