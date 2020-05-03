@@ -136,8 +136,8 @@ set ruler
 " Use syntax highlighting
 syntax on
 
-" Move NERDTree to the right
-let g:NERDTreeWinPos="right"
+"" Move NERDTree to the right
+"let g:NERDTreeWinPos="right"
 
 
 
@@ -176,17 +176,17 @@ colorscheme monokai
 "colorscheme peaksea
 "colorscheme rdark
 
-" NERDTree color settings
-" Highlight full file name (not only icons)
-let g:NERDTreeFileExtensionHighlightFullName=1
-let g:NERDTreeExactMatchHighlightFullName=1
-let g:NERDTreePatternMatchHighlightFullName=1
-
-" Enable folder icon highlighting using exact match
-let g:NERDTreeHighlightFolders=1
-
-" Highlight the folder name
-let g:NERDTreeHighlightFoldersFullName=1
+"" NERDTree color settings
+"" Highlight full file name (not only icons)
+"let g:NERDTreeFileExtensionHighlightFullName=1
+"let g:NERDTreeExactMatchHighlightFullName=1
+"let g:NERDTreePatternMatchHighlightFullName=1
+"
+"" Enable folder icon highlighting using exact match
+"let g:NERDTreeHighlightFolders=1
+"
+"" Highlight the folder name
+"let g:NERDTreeHighlightFoldersFullName=1
 
 
 
@@ -223,10 +223,10 @@ map <Tab><Tab> <C-W>w
 " Toggle spell-checking with <Space>ss 
 map <leader>ss :setlocal spell!<CR>
 
-" NERDTree keybindings
-" Find the currently open file in NERDTree with <Space>ff 
+"" NERDTree keybindings
+"" Find the currently open file in NERDTree with <Space>ff 
 "nmap <leader>ff :NERDTreeFind<CR>
-" Toggle NERDTree with <Space>tt
+"" Toggle NERDTree with <Space>tt
 "nmap <leader>tt :NERDTreeToggle<CR>
 
 " Trigger Emmet with ,,
