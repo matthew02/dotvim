@@ -220,7 +220,7 @@ inoremap <C-U> <C-G>u<C-U>
 " Cycle through windows by double-pressing <Tab>
 map <Tab><Tab> <C-W>w
 
-"" Toggle spell-checking with <Space>ss 
+" Toggle spell-checking with <Space>ss 
 "map <leader>ss :setlocal spell!<CR>
 
 "" NERDTree keybindings
@@ -264,7 +264,7 @@ nmap <leader>p :bprevious<CR>
 nmap <leader>b :buffers<CR>
 
 " Binding for fzf
-nnoremap <leader>s :<C-u>FZF<CR>
+nnoremap <leader>ss :<C-u>FZF<CR>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
