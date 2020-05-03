@@ -264,7 +264,10 @@ nmap <leader>p :bprevious<CR>
 nmap <leader>b :buffers<CR>
 
 " Binding for fzf
-nnoremap <leader>ss :<C-u>FZF<CR>
+nnoremap <leader>f :<C-u>FZF<CR>
+
+" Quick save file
+noremap <leader>s :update<CR>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
