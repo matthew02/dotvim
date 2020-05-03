@@ -15,8 +15,8 @@ endif
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-" Automatically saves buffers
-Plug '907th/vim-auto-save'
+"" Automatically saves buffers
+"Plug '907th/vim-auto-save'
 
 "" Linting using Language Server Protocol
 "Plug 'dense-analysis/ale'
@@ -317,8 +317,8 @@ cmap w!! w !sudo tee % > /dev/null
 " Automatically save the buffer whenever text is changed
 "autocmd TextChanged,TextChangedI * silent write
 
-" Enable autosave (plugin)
-let g:auto_save = 1
+"" Enable autosave (plugin)
+"let g:auto_save = 1
 
 "" Farce Ale to use pipenv where available
 "let g:ale_python_auto_pipenv = 1
