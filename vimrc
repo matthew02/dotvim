@@ -220,8 +220,8 @@ inoremap <C-U> <C-G>u<C-U>
 " Cycle through windows by double-pressing <Tab>
 map <Tab><Tab> <C-W>w
 
-" Toggle spell-checking with <Space>ss 
-map <leader>ss :setlocal spell!<CR>
+"" Toggle spell-checking with <Space>ss 
+"map <leader>ss :setlocal spell!<CR>
 
 "" NERDTree keybindings
 "" Find the currently open file in NERDTree with <Space>ff 
