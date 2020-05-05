@@ -270,7 +270,7 @@ nnoremap <leader>f :<C-u>FZF<CR>
 noremap <leader><leader> :update<CR>
 
 " Hide search hilighting
-noremap <leader>n :noh<CR>
+nnoremap <leader>h :noh<CR>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
