@@ -267,7 +267,10 @@ nmap <leader>b :buffers<CR>
 nnoremap <leader>f :<C-u>FZF<CR>
 
 " Quick save file
-noremap <leader>s :update<CR>
+noremap <leader><leader> :update<CR>
+
+" Hide search hilighting
+noremap <leader>n :noh<CR>
 
 " Disable navigation keys to force correct habits
 noremap <Up>       <Nop>
